@@ -152,3 +152,45 @@ print(A2)
 
 print("\nActual Labels:")
 print(y)
+
+print("\nFinal Probabilities:")
+print(A2)
+
+final_classes = (A2 >= 0.5).astype(int)
+
+print("\nFinal Predicted Classes:")
+print(final_classes)
+
+print("\nActual Labels:")
+print(y)
+
+
+def predict(student):
+    Z1 = np.dot(student, W1) + b1
+    A1 = relu(Z1)
+
+    Z2 = np.dot(A1, W2) + b2
+    A2 = sigmoid(Z2)
+
+    predicted_class = (A2 >= 0.5).astype(int)
+
+    return A2, predicted_class
+
+
+new_student = np.array([[5, 3]])
+
+probability, predicted_class = predict(new_student)
+
+print("\nNew Student:")
+print(new_student)
+
+print("\nProbability of Passing:")
+print(probability)
+
+print("\nPredicted Class:")
+print(predicted_class)
+
+if predicted_class[0][0] == 1:
+    print("\nResult: PASS")
+else:
+    print("\nResult: FAIL")
