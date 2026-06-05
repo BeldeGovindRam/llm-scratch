@@ -96,3 +96,59 @@ loss = binary_cross_entropy(y, A2)
 
 print("\nLoss:")
 print(loss)
+
+#=========================
+# TRAINING LOOP
+# =========================
+
+for epoch in range(epochs):
+
+    # Forward pass: input → hidden layer
+    Z1 = np.dot(X, W1) + b1
+    A1 = relu(Z1)
+
+    # Forward pass: hidden layer → output layer
+    Z2 = np.dot(A1, W2) + b2
+    A2 = sigmoid(Z2)
+
+    # Calculate loss
+    loss = binary_cross_entropy(y, A2)
+
+    if epoch % 100 == 0:
+        print(f"Epoch {epoch}, Loss: {loss:.6f}")
+    
+    # =========================
+    # BACKPROPAGATION
+    # =========================
+
+    m = len(y)
+
+    dZ2 = A2 - y
+    dW2 = np.dot(A1.T, dZ2) / m
+    db2 = np.sum(dZ2, axis=0, keepdims=True) / m
+
+    dA1 = np.dot(dZ2, W2.T)
+    dZ1 = dA1 * (Z1 > 0)
+
+    dW1 = np.dot(X.T, dZ1) / m
+    db1 = np.sum(dZ1, axis=0, keepdims=True) / m
+
+    # =========================
+    # UPDATE PARAMETERS
+    # =========================
+
+    W1 = W1 - learning_rate * dW1
+    b1 = b1 - learning_rate * db1
+
+    W2 = W2 - learning_rate * dW2
+    b2 = b2 - learning_rate * db2
+
+# =========================
+# FINAL OUTPUT
+# =========================
+
+print("\nFinal Predictions:")
+print(A2)
+
+print("\nActual Labels:")
+print(y)
