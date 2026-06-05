@@ -157,6 +157,10 @@ print("\nFinal Probabilities:")
 print(A2)
 
 final_classes = (A2 >= 0.5).astype(int)
+accuracy = np.mean(final_classes == y) * 100
+
+print("\nAccuracy:")
+print(f"{accuracy:.2f}%")
 
 print("\nFinal Predicted Classes:")
 print(final_classes)
@@ -194,3 +198,9 @@ if predicted_class[0][0] == 1:
     print("\nResult: PASS")
 else:
     print("\nResult: FAIL")
+
+print("\nW1 Shape:", W1.shape)
+print("b1 Shape:", b1.shape)
+
+print("\nW2 Shape:", W2.shape)
+print("b2 Shape:", b2.shape)
